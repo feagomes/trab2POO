@@ -1,16 +1,16 @@
 package util;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-/**
- * Classe pra iniciar a conexao com o banco
- */
 public class HibernateUtil {
-    //cria a conexao com o banco
-    private static final SessionFactory conexao = new Configuration().configure().buildSessionFactory();
-    //retorna a conexao pras operacoes usarem
-    public static SessionFactory getSessionFactory() {
-        return conexao;
+    
+    // cria a fabrica usando o nome do seu persistence-unit
+    private static final EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("trab2pooPU");
+
+    // abre e devolve o gerenciador do banco (EntityManager)
+    public static EntityManager getEntityManager() {
+        return fabrica.createEntityManager();
     }
 }

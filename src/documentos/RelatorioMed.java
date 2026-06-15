@@ -10,6 +10,7 @@ import javax.persistence.*;
  * - declaração de acompanhamento
  * - nome do paciente
  */
+@Entity
 @Table(name = "relatorios_medicos") 
 public class RelatorioMed {
     

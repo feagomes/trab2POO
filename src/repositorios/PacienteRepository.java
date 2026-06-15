@@ -1,61 +1,67 @@
 package repositorios;
 
 import entidades.Paciente;
-import util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import java.util.List;
+import javax.persistence.EntityManager;
+import util.HibernateUtil;
 
-/**
- * Classe de CRUD da tabela de pacientes no banco
- */
 public class PacienteRepository {
 
     //Metodo pra salvar/atualizar o paciente
     public void salvarPaciente(Paciente p) {
         //abre o banco
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        //aqui é a operacao de salvar/atualizar mesmo (comeca -> salva/atualiza)
-        Transaction operacao = sessao.beginTransaction();
-        sessao.saveOrUpdate(p);
+        EntityManager gerenciador = HibernateUtil.getEntityManager();
+        //comeca a operacao
+        gerenciador.getTransaction().begin();
+        //salva ou atualiza os dados
+        gerenciador.merge(p);
         //confirma se salvou/atualizou
-        operacao.commit();
+        gerenciador.getTransaction().commit();
         //fecha o banco
-        sessao.close();
+        gerenciador.close();
     }
 
     //Metodo para excluir o paciente
     public void excluirPaciente(Paciente p) {
         //abre o banco
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        //aqui é a operacao de deletar mesmo (comeca -> exclui)
-        Transaction operacao = sessao.beginTransaction();
-        sessao.delete(p);
+        EntityManager gerenciador = HibernateUtil.getEntityManager();
+        //comeca a operacao
+        gerenciador.getTransaction().begin();
+        //acha o paciente pelo id pra apagar com seguranca
+        Paciente alvo = gerenciador.find(Paciente.class, p.getId());
+        if (alvo != null) {
+            gerenciador.remove(alvo);
+        }
         //confirma a exclusao
-        operacao.commit();
+        gerenciador.getTransaction().commit();
         //fecha o banco
-        sessao.close();
+        gerenciador.close();
     }
 
     //Metodo para listar todos os pacientes
     public List<Paciente> buscarTodos() {
         //abre o banco
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        EntityManager gerenciador = HibernateUtil.getEntityManager();
         //pega os pacientes e coloca numa lista
-        List<Paciente> lista = sessao.createQuery("from Paciente", Paciente.class).list();
+        List<Paciente> lista = gerenciador.createQuery("from Paciente", Paciente.class).getResultList();
         //fecha o banco
-        sessao.close();
+        gerenciador.close();
         return lista;
     }
 
     //Metodo pra pegar um paciente pelo telefone dele
     public Paciente buscarPorTelefone(String telefone) {
         //abre o banco
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        //busca pelo telefone
-        Paciente resultado = sessao.createQuery("from Paciente where telefone = :tel", Paciente.class).setParameter("tel", telefone).uniqueResult();                        
+        EntityManager gerenciador = HibernateUtil.getEntityManager();
+        //busca pelo telefone jogando numa lista pra nao dar erro se nao achar nada
+        List<Paciente> resultado = gerenciador.createQuery("from Paciente where telefone = :tel", Paciente.class).setParameter("tel", telefone).getResultList();                        
         //fecha o banco
-        sessao.close();
-        return resultado;
+        gerenciador.close();
+        // se nao achou nada devolve nulo
+        if (resultado.isEmpty()) {
+            return null;
+        }
+        // se achou devolve o primeiro
+        return resultado.get(0);
     }
 }
