@@ -25,9 +25,6 @@ public class Consulta {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
-
-    @Transient 
-    public Scanner sc = new Scanner(System.in);
     
     @ManyToOne //pra poder ter mais de uma consulta pro mesmo paciente
     private Paciente p;

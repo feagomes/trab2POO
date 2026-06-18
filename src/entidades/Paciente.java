@@ -35,10 +35,19 @@ public class Paciente {
 
     @ElementCollection 
     private List<String> enfermidades = new ArrayList<>();
-
+    
+    //adicionei essas doencas pra facilitar na tela, se nao na lista ia ficar muito confusa
+    private boolean fuma;
+    private boolean bebe;
+    private boolean colesterol;
+    private boolean doencaCard;
+    private boolean diabete;
+    private String cirurgias;
+    private String alergias;
+    
     @Transient 
     private Scanner sc = new Scanner(System.in);
-
+    
     
     public Paciente() {
     }
@@ -52,6 +61,12 @@ public class Paciente {
         this.email = email;
         this.telefone = telefone;
     }
+    
+    @Override
+    public String toString() {
+        return this.nome; 
+    }
+
     // remove o paciente do prontuario
     public void resetProntuario (){
         this.prontuario = null;
@@ -71,6 +86,10 @@ public class Paciente {
 
     public void setNascimento(String nascimento) {
         this.nascimento = nascimento;
+    }
+
+    public String getNascimento() {
+        return nascimento;
     }
 
     public void setEndereco(String endereco) {
@@ -112,6 +131,10 @@ public class Paciente {
     public String getConvenio() {
         return convenio;
     }
+
+    public String getEndereco() {
+        return endereco;
+    }
     
     //Getter e setter pro ID do banco
     public Long getId() {
@@ -121,4 +144,63 @@ public class Paciente {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public boolean isFuma() {
+        return fuma;
+    }
+
+    public void setFuma(boolean fuma) {
+        this.fuma = fuma;
+    }
+
+    public boolean isBebe() {
+        return bebe;
+    }
+
+    public void setBebe(boolean bebe) {
+        this.bebe = bebe;
+    }
+
+    public boolean isColesterol() {
+        return colesterol;
+    }
+
+    public void setColesterol(boolean colesterol) {
+        this.colesterol = colesterol;
+    }
+
+    public boolean isDoencaCard() {
+        return doencaCard;
+    }
+
+    public void setDoencaCard(boolean doencaCard) {
+        this.doencaCard = doencaCard;
+    }
+
+    public boolean isDiabete() {
+        return diabete;
+    }
+
+    public void setDiabete(boolean diabete) {
+        this.diabete = diabete;
+    }
+
+    public String getCirurgias() {
+        return cirurgias;
+    }
+
+    public void setCirurgias(String cirurgias) {
+        this.cirurgias = cirurgias;
+    }
+
+    public String getAlergias() {
+        return alergias;
+    }
+
+    public void setAlergias(String alergias) {
+        this.alergias = alergias;
+    }
+    
+    
+    
 }

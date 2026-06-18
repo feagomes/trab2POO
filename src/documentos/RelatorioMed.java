@@ -33,7 +33,13 @@ public class RelatorioMed {
         this.acompanhamento = acompanhamento;
         this.cliente = cliente;
     }    
-
+    
+    public void setAtestado(String atestado){
+        this.atestado = atestado;
+    }
+    public void setAcompanhamento(String acompanhamento){
+        this.acompanhamento = acompanhamento;
+    }
     
     public Long getId() {
         return id;

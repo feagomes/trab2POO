@@ -64,6 +64,11 @@ public class Medico {
     public int getClientesAtendidos() {
         return this.relatorios.size();
     }
+    
+    @Override
+    public String toString() {
+        return this.nome; 
+    }
 
     /**
      * Gerencia informações adicionais do relatório médico do paciente.

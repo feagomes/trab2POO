@@ -51,4 +51,15 @@ public class MedicoRepository {
         // se achou devolve o primeiro
         return resultado.get(0);
     }
+    
+    //Metodo pra buscar o medico pelo ID pro login 
+    public Medico buscarPorId(Long id) {
+        //abre o banco
+        EntityManager gerenciador = HibernateUtil.getEntityManager();
+        //busca o medico pelo ID
+        Medico m = gerenciador.find(Medico.class, id);
+        //fecha o banco
+        gerenciador.close();
+        return m;
+    }
 }
