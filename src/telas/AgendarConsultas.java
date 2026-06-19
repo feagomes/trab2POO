@@ -3,6 +3,7 @@ package telas;
 import documentos.Consulta;
 import entidades.Medico;
 import entidades.Paciente;
+// Classes responsáveis pelo acesso ao banco de dados
 import repositorios.ConsultaRepository;
 import repositorios.MedicoRepository;
 import repositorios.PacienteRepository;
@@ -10,12 +11,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AgendarConsultas extends JDialog {
+    /*
+     * Janela responsável pelo agendamento de consultas.
+     * Ela herda de JDialog, ou seja, é uma janela secundária
+     * que fica vinculada à janela principal.
+     */
 
     private JComboBox<Paciente> botaoPaciente;
     private JComboBox<Medico> botaoMedico;
     private JComboBox<String> botaoTipo;
     private JTextField txtData, txtHorario;
-
+    /*
+     * Construtor da janela.
+     * Recebe a janela principal como parâmetro.
+     */
     public AgendarConsultas(Frame parent) {
         super(parent, "agendar consulta", true);
         setSize(400, 300);
@@ -23,10 +32,14 @@ public class AgendarConsultas extends JDialog {
 
         JPanel painelForm = new JPanel(new GridLayout(5, 2, 10, 10));
         painelForm.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-
+        /*
+         * Cria um modelo para armazenar pacientes.
+         * Esse modelo será usado pelo JComboBox.
+         */
         DefaultComboBoxModel<Paciente> pacienteLista = new DefaultComboBoxModel<>();
-        //aqui ele vai buscar todos e pegar só o nome pra colocar na combobox, por isso o addElement(p)
+        //aqui ele vai buscar todos e selecionar apenas o nome para inserir na combobox, por isso o addElement(p)
         for (Paciente p : new PacienteRepository().buscarTodos()) {pacienteLista.addElement(p);}
+         // Cria o ComboBox usando a lista carregada
         botaoPaciente = new JComboBox<>(pacienteLista);
 
         DefaultComboBoxModel<Medico> medicoLista = new DefaultComboBoxModel<>();
@@ -53,7 +66,7 @@ public class AgendarConsultas extends JDialog {
 
         painelForm.add(new JLabel("Tipo:"));
         painelForm.add(botaoTipo);
-
+        // botão para confirmar agendamento
         JButton botaoAgendar = new JButton("Confirmar ");
         
         add(painelForm, BorderLayout.CENTER);
