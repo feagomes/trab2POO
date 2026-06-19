@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TelaPrincipal extends JFrame {
-
+    // define layout, tamanho e os componentes da tela, como botões e seções de texto
     public TelaPrincipal() {
         setTitle("clinica medica");
         setSize(400, 200);
