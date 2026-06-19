@@ -6,18 +6,19 @@ import javax.persistence.EntityManager;
 import util.HibernateUtil;
 
 public class ProntuarioRepository {
-
-    //Metodo pra salvar/atualizar o prontuario
+     /**
+     * Salva um novo prontuário ou atualiza um prontuário já existente.
+     */
     public void salvar(Prontuario p) {
-        //abre o banco
+        // Obtém uma conexão com o banco através do EntityManager
         EntityManager gerenciador = HibernateUtil.getEntityManager();
-        //comeca a operacao
+         // Inicia uma transação para permitir alterações no banco
         gerenciador.getTransaction().begin();
-        //salva ou atualiza os dados
+        // Insere ou atualiza o prontuário na base de dados
         gerenciador.merge(p);
         //confirma se salvou/atualizou
         gerenciador.getTransaction().commit();
-        //fecha o banco
+        //fecha o banco, ou seja, libera os recursos usados na conexão
         gerenciador.close();
     }
 
@@ -25,7 +26,7 @@ public class ProntuarioRepository {
     public List<Prontuario> buscarTodos() {
         //abre o banco
         EntityManager gerenciador = HibernateUtil.getEntityManager();
-        //pega os prontuarios e coloca numa lista
+        //pega os prontuarios e o adiciona em uma lista
         List<Prontuario> lista = gerenciador.createQuery("from Prontuario", Prontuario.class).getResultList();
         //fecha o banco
         gerenciador.close();
