@@ -11,10 +11,10 @@
     <class>documentos.Prontuario</class>
     <class>documentos.RelatorioMed</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/teste1"/> //deixei o nome teste 1 de padrao, mas caso queiram mudar, acho que vai ter que gerar todo o arquivo dnv
-      <property name="javax.persistence.jdbc.user" value="fealgo"/> //Muda pro servidor de voces (nome)
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.client.ClientAutoloadedDriver"/>
-      <property name="javax.persistence.jdbc.password" value="123"/> //(senha)
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/teste1;create=true"/> <!-- deixei o nome teste 1 de padrao, mas caso queiram mudar, acho que vai ter que gerar todo o arquivo dnv -->
+      <property name="javax.persistence.jdbc.user" value="teste"/> <!-- Muda pro servidor de voces (nome) -->
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/> <!-- (senha) -->
       <property name="hibernate.cache.use_second_level_cache" value="false"/>
       <property name="hibernate.cache.use_query_cache" value="false"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
